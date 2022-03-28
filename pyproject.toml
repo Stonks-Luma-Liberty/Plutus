@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "plutus"
+version = "0.1.0"
+description = "NFT floor price checker"
+authors = ["Christian Pérez Villanueva <perez.villanueva.christian34@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+python-dotenv = "^0.19.2"
+py-cord = {git = "https://github.com/Pycord-Development/pycord.git"}
+magicpyden = "^0.1.3"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+pre-commit = "^2.17.0"
+wemake-python-styleguide = "^0.16.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
