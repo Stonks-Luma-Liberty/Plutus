@@ -16,3 +16,6 @@ logger = logging.getLogger(__name__)
 
 DISCORD_BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 GUILD_IDS = os.getenv("GUILD_IDS", "").split(",")
+
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")

@@ -7,7 +7,7 @@ from config import DISCORD_BOT_TOKEN
 
 @bot.event
 async def on_ready() -> None:
-    """Initial setup for discord bot"""
+    """Ready discord bot."""
     logger.info(f"{bot.user} successfully logged in!")
 
 
