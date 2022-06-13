@@ -9,7 +9,7 @@ RUN apt-get update && \
     apt-get -y install git libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    useradd -ms /bin/bash plutus_user \
+    useradd -ms /bin/bash plutus_user && \
     curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH="${HOME}/.cargo/bin:${PATH}"
 USER plutus_user
