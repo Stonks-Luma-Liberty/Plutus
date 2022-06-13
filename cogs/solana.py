@@ -1,5 +1,5 @@
 from discord import ApplicationContext, Bot, Embed, option
-from discord.commands import slash_command, Option
+from discord.commands import slash_command
 from discord.ext import commands
 from magicpyden import MagicEdenApi
 from magicpyden.constants import LAMPORTS_PER_SOL
