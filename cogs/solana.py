@@ -1,5 +1,5 @@
-from discord import ApplicationContext, Bot, Embed
-from discord.commands import slash_command, Option
+from discord import ApplicationContext, Bot, Embed, option
+from discord.commands import slash_command
 from discord.ext import commands
 from magicpyden import MagicEdenApi
 from magicpyden.constants import LAMPORTS_PER_SOL
@@ -20,29 +20,38 @@ class Solana(commands.Cog):
         self.bot = bot
 
     @slash_command(guild_ids=GUILD_IDS)
-    async def floor_price(
-        self,
-        ctx: ApplicationContext,
-        collection_name: Option(str, "Enter token symbol", autocomplete=get_nft_suggestions),  # type: ignore
-    ) -> None:
+    @option(
+        "collection_name",
+        description="Enter token symbol",
+        autocomplete=get_nft_suggestions,
+    )
+    async def nft_stats(self, ctx: ApplicationContext, collection_name: str) -> None:
         """
-        Retrieve floor price of specified Solana NFT project.
+        Retrieve nft stats of specified Solana NFT project.
 
         :param ctx: Discord application context
         :param collection_name: Solana NFT collection name
         """
         logger.info(f"Looking up floor price for {collection_name}")
+        title = collection_name.replace("_", " ").title()
         embed_message = Embed(
-            title=f"Floor Price ({collection_name})", colour=Color.screamin_green.value
+            title=f"MagicEden Stats: {title}",
+            colour=Color.screamin_green.value,
         )
+
         async with MagicEdenApi() as api:
             collection = await api.get_collection_stats(collection_name=collection_name)
             floor_price = collection.floor_price / LAMPORTS_PER_SOL
+            volume_all = collection.volume_all / LAMPORTS_PER_SOL
             embed_message.add_field(
-                name="MagicEden",
-                value=f"{floor_price} SOL",
+                name="Floor", value=f"{floor_price:,.2f} SOL", inline=False
             )
-
+            embed_message.add_field(
+                name="Listed", value=f"{collection.listed_count:,.2f}", inline=True
+            )
+            embed_message.add_field(
+                name="Volume", value=f"{volume_all:,.2f} SOL", inline=True
+            )
         await ctx.respond(embed=embed_message)
 
         symbol = collection.symbol
