@@ -3,6 +3,7 @@ services:
 
   plutus_bot:
     build: .
+    restart: unless-stopped
     command: bash -c "python main.py"
     volumes:
       - .:/plutus_bot
